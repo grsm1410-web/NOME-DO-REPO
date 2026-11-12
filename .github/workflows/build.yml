@@ -1,0 +1,41 @@
+name: Build mod
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Baixar o codigo
+        uses: actions/checkout@v7
+
+      - name: Instalar JDK 17 (Temurin)
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      # O upload pelo site do GitHub nao preserva a permissao de execucao nem
+      # garante o formato de fim de linha do gradlew. Estas duas linhas corrigem isso.
+      - name: Preparar o gradlew
+        run: |
+          sed -i 's/\r$//' gradlew
+          chmod +x gradlew
+
+      - name: Compilar (gradlew build)
+        run: ./gradlew build --no-daemon --stacktrace
+
+      - name: Publicar o jar como artefato
+        uses: actions/upload-artifact@v7
+        with:
+          name: craterborn-jar
+          path: build/libs/*.jar
+          if-no-files-found: error

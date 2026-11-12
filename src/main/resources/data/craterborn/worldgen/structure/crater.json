@@ -1,0 +1,7 @@
+{
+  "type": "craterborn:crater",
+  "biomes": "#craterborn:has_crater",
+  "step": "surface_structures",
+  "spawn_overrides": {},
+  "terrain_adaptation": "none"
+}

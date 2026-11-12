@@ -1,0 +1,23 @@
+# Gradle / ForgeGradle
+.gradle/
+build/
+run/
+run-data/
+out/
+bin/
+*.log
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.classpath
+.project
+.settings/
+eclipse/
+
+# Saídas locais
+mcmodsrepo/
+forge*changelog.txt
